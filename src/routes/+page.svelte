@@ -2,6 +2,10 @@
 	import { fade } from 'svelte/transition';
 	import Typewriter from '$lib/components/Typewriter.svelte';
 	import Box from '$lib/components/Box.svelte';
+	import { onMount } from 'svelte';
+
+	let ready = false;
+	onMount(() => (ready = true));
 
 	import Icon from '@iconify/svelte';
 
@@ -24,7 +28,7 @@
 	<Typewriter speed={50} goofyness={25} bind:text bind:content />
 </div>
 
-{#if text == content}
+{#if ready}
 	<!-- random stuff about me -->
 	<div
 		class="mt-6 flex flex-col gap-4 justify-center items-center"
@@ -89,7 +93,9 @@
 						class="rounded-lg w-16 h-16"
 					/>
 					<div class="flex flex-col my-auto">
-						<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate sm:w-48 w-36">{data.song.title}</p>
+						<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate sm:w-48 w-36">
+							{data.song.title}
+						</p>
 						<p class="sm:text-md text-md text-ellipsis truncate sm:w-48 w-36">{data.song.artist}</p>
 					</div>
 				</a>
