@@ -13,7 +13,7 @@
 
 <div class="bg-base-300 bg-opacity-50 p-4 m-2 rounded-lg">
 	<button
-		class="absolute mt-1 text-2xl right-6 flex items-center justify-end"
+		class="absolute mt-1 text-2xl right-6 flex items-center justify-end hover:scale-125 transition-transform"
 		data-toggle-theme="dark,light"
 		data-act-class="ACTIVECLASS"
 		on:click={() => theme.update((t) => (t === 'dark' ? 'light' : 'dark'))}

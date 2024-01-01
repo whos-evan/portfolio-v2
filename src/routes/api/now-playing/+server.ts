@@ -27,6 +27,10 @@ export async function GET() {
         }
     });
 
+    if (response.status === 204 || response.status > 400) {
+        return json({ isPlaying: false });
+    }
+
     const data = await response.json();
     // clean up the data
     let isPlaying, title, artist, album, albumImageUrl, songUrl;
