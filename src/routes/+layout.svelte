@@ -38,7 +38,7 @@
 	</div>
 </div>
 
-<div class="m-2 min-h-[calc(100vh-104px)]">
+<div class="m-2 min-h-[calc(100vh-90px)]">
 	<slot />
 </div>
 
