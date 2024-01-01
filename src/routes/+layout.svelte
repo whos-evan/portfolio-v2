@@ -42,6 +42,11 @@
 	<slot />
 </div>
 
+<svelte:head>
+	<title>evan</title>
+	<meta name="description" content="evan's thing" />
+</svelte:head>
+
 <svelte:window bind:innerWidth />
 
 <!-- on window resize kill dog and re-render -->
