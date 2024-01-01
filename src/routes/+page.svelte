@@ -47,7 +47,7 @@
 					<div class="rounded-lg bg-purple-500 text-purple-100">
 						<div class="flex flex-row justify-center items-center gap-2 py-2">
 							<Icon icon="akar-icons:discord-fill" class="text-2xl" />
-							<p class="text-xl">evan1984</p>
+							<p class="sm:text-xl text-lg">evan1984</p>
 						</div>
 					</div>
 				</a>
@@ -56,7 +56,7 @@
 					<div class="rounded-lg bg-orange-500 text-orange-100">
 						<div class="flex flex-row justify-center items-center gap-2 py-2">
 							<Icon icon="ic:baseline-mail" class="text-2xl" />
-							<p class="text-xl">contact@3van.dev</p>
+							<p class="sm:text-xl text-lg">contact@3van.dev</p>
 						</div>
 					</div>
 				</a>
@@ -65,7 +65,7 @@
 					<div class="rounded-lg bg-green-500 text-green-100">
 						<div class="flex flex-row justify-center items-center gap-2 py-2">
 							<Icon icon="solar:phone-bold" class="text-2xl" />
-							<p class="text-xl">
+							<p class="sm:text-xl text-lg">
 								{randomPhone}
 							</p>
 						</div>
@@ -89,8 +89,8 @@
 						class="rounded-lg w-16 h-16"
 					/>
 					<div class="flex flex-col my-auto">
-						<p class="text-xl font-semibold text-ellipsis truncate w-48">{data.song.title}</p>
-						<p class="text-md text-ellipsis truncate w-48">{data.song.artist}</p>
+						<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate sm:w-48 w-36">{data.song.title}</p>
+						<p class="sm:text-md text-md text-ellipsis truncate sm:w-48 w-36">{data.song.artist}</p>
 					</div>
 				</a>
 			{/if}
