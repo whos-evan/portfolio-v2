@@ -5,7 +5,7 @@
 	import Icon from '@iconify/svelte';
 </script>
 
-<h1 class="text-4xl font-bold text-center mt-6">utils</h1>
+<h1 class="text-4xl font-bold text-center pt-6">utils</h1>
 
 <div
 	class="mt-6 flex flex-col gap-4 justify-center items-center"

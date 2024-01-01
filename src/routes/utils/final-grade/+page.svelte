@@ -63,7 +63,7 @@
 	}
 </script>
 
-<div class="rounded-3xl m-8">
+<div class="rounded-3xl p-8">
 	<h1 class="text-left text-4xl font-bold">Final Grade Calculator</h1>
 	<!-- Text describing what it does -->
 	<div class="mt-2 text-xl">

@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { theme } from '$lib/stores';
 	import Dog from '$lib/components/Dog.svelte';
+	import Terminal from '$lib/components/Terminal.svelte';
 
 	onMount(() => {
 		themeChange(false);
@@ -46,6 +47,8 @@
 	<title>evan</title>
 	<meta name="description" content="evan's thing" />
 </svelte:head>
+
+<Terminal />
 
 <svelte:window bind:innerWidth />
 

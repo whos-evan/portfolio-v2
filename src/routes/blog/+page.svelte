@@ -5,7 +5,7 @@
 	export let data;
 </script>
 
-<h1 class="text-4xl font-bold text-center mt-6">
+<h1 class="text-4xl font-bold text-center pt-6">
     blog
 </h1>
 

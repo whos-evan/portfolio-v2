@@ -5,12 +5,14 @@
 	import { onMount } from 'svelte';
 
 	let ready = false;
-	onMount(() => (ready = true));
+	onMount(() => {
+		ready = true;
+	});
 
 	import Icon from '@iconify/svelte';
 
 	let text: string;
-	let content: string = 'hello im evan!';
+	let content: string = "hello i'm evan!";
 
 	let randomPhoneNum = Math.floor(Math.random() * 10000000000);
 	// make sure it's 10 digits
@@ -20,6 +22,21 @@
 
 	// format
 	let randomPhone = randomPhoneNum.toString().replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+
+	// in 10 seconds change content to something else
+	setTimeout(() => {
+		setTimeout(() => {
+			content = 'use the terminal with control + shift + h';
+		}, 1000);
+
+		setTimeout(() => {
+			content = 'or not';
+		}, 10000);
+
+		setTimeout(() => {
+			content = 'hi again :)';
+		}, 16000);
+	}, 5000);
 
 	export let data;
 </script>
@@ -36,7 +53,7 @@
 	>
 		<Box
 			headingText="about me"
-			content="im a developer from the united states. i try to make cool stuff."
+			content="i'm a developer from the united states. i try to make cool stuff."
 		/>
 
 		<Box
@@ -81,7 +98,7 @@
 		<Box>
 			<!-- spotify now playing box -->
 			<h2 class="text-2xl font-semibold">now playing</h2>
-			<p class="text-sm text-base-content pb-2">what im listening to on spotify.</p>
+			<p class="text-sm text-base-content pb-2">what i'm listening to on spotify.</p>
 
 			{#if data.song.isPlaying == false}
 				<p class="text-lg">nothing is playing right now :(</p>
