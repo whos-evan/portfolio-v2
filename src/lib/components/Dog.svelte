@@ -2,71 +2,39 @@
 	import { onDestroy, onMount } from 'svelte';
 
 	let state = 'Idle';
-
-	onMount(() => {
-		startAnimation();
-	});
-
-	onDestroy(() => {
-		clearInterval(animationInterval);
-		clearInterval(randomInterval);
-	});
-
 	let animationInterval;
 	let randomInterval;
 	let positionX = 0;
 	let animationCycles = 0;
-	const MOVE_AMOUNT = 24;
+	const MOVE_AMOUNT = 10;
 
-	function walkLeft() {
-		// Ensure the dog doesn't walk off the screen
-		if (positionX <= 0) {
+	function walk(direction) {
+		const isWalkingLeft = direction === 'left';
+		if (
+			(isWalkingLeft && positionX <= 0) ||
+			(!isWalkingLeft && positionX >= document.body.clientWidth - 64)
+		) {
 			startIdleAnimation();
 			return;
 		}
 
 		state = 'Walk';
-
-		// change direction
-		document.getElementById('dogSprite').style.transform = 'scaleX(-1)';
-
-		document.getElementById('dogSpriteContainer').style.transform = `translateX(${
-			positionX - MOVE_AMOUNT
-		}px)`;
-		positionX -= MOVE_AMOUNT;
-	}
-
-	function walkRight() {
-		// Ensure the dog doesn't walk off the screen
-		if (positionX >= document.body.clientWidth - 64) {
-			state = 'Idle';
-
-			startIdleAnimation();
-			return;
-		}
-
-		state = 'Walk';
-
-		// change direction
-		document.getElementById('dogSprite').style.transform = 'scaleX(1)';
-
-		document.getElementById('dogSpriteContainer').style.transform = `translateX(${
-			positionX + MOVE_AMOUNT
-		}px)`;
-
-		positionX += MOVE_AMOUNT;
+		const scaleX = isWalkingLeft ? -1 : 1;
+		document.getElementById('dogSprite').style.transform = `scaleX(${scaleX})`;
+		positionX += isWalkingLeft ? -MOVE_AMOUNT : MOVE_AMOUNT;
+		document.getElementById('dogSpriteContainer').style.transform = `translateX(${positionX}px)`;
 	}
 
 	function startAnimation() {
 		randomInterval = setInterval(() => {
-			if (animationCycles == 0) {
+			if (animationCycles === 0) {
 				startIdleAnimation();
 				animationCycles++;
 				return;
 			}
 
-			let randomNumber = Math.random();
-			if (randomNumber < 0.5) {
+			const shouldWalk = Math.random() < 0.5;
+			if (shouldWalk) {
 				startWalkAnimation();
 			} else {
 				startIdleAnimation();
@@ -75,36 +43,24 @@
 	}
 
 	function startWalkAnimation() {
-		let totalIntervals = 6;
+		const totalIntervals = 6;
 		let currentInterval = 0;
-		let direction = '';
 		clearInterval(animationInterval);
-		// randomly change direction
-		const randomNumber = Math.random();
-		if (randomNumber < 0.5) {
-			direction = 'left';
-		} else {
-			direction = 'right';
-		}
+		const direction = Math.random() < 0.5 ? 'left' : 'right';
 		animationInterval = setInterval(() => {
-			if (direction === 'left') {
-				walkLeft();
-			} else {
-				walkRight();
-			}
+			walk(direction);
 			if (currentInterval <= totalIntervals) {
 				currentInterval++;
 			} else {
 				currentInterval = 0;
 			}
 			document.getElementById('dogSprite').style.backgroundPositionX = `${currentInterval * -48}px`;
-		}, 200);
+		}, 150);
 	}
 
 	function startIdleAnimation() {
 		state = 'Idle';
-
-		let totalIntervals = 4;
+		const totalIntervals = 4;
 		let currentInterval = 0;
 		clearInterval(animationInterval);
 		animationInterval = setInterval(() => {
@@ -116,11 +72,19 @@
 			document.getElementById('dogSprite').style.backgroundPositionX = `${currentInterval * -48}px`;
 		}, 200);
 	}
+
+	onMount(startAnimation);
+
+	onDestroy(() => {
+		clearInterval(animationInterval);
+		clearInterval(randomInterval);
+	});
 </script>
 
 <div class="relative">
 	<div class="absolute bottom-0 mx-auto">
-		<div class="dog-sprite-container" id="dogSpriteContainer">
+		<!-- svelte-ignore a11y-no-static-element-interactions -->
+		<div class="dog-sprite-container" id="dogSpriteContainer" on:mousedown={() => startWalkAnimation()}>
 			<div
 				id="dogSprite"
 				class="w-12 h-12"
