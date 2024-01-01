@@ -32,6 +32,11 @@ export async function GET() {
     }
 
     const data = await response.json();
+
+    if (data.currently_playing_type !== 'track') {
+        return json({ isPlaying: false });
+    }
+    
     // clean up the data
     let isPlaying, title, artist, album, albumImageUrl, songUrl;
     if (data) {
