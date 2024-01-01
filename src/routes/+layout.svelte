@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import '../app.css';
 
 	import { themeChange } from 'theme-change';
@@ -6,9 +6,13 @@
 
 	import { onMount } from 'svelte';
 	import { theme } from '$lib/stores';
+	import Dog from '$lib/components/Dog.svelte';
+
 	onMount(() => {
 		themeChange(false);
 	});
+
+	let innerWidth: number;
 </script>
 
 <div class="bg-base-300 bg-opacity-50 p-4 m-2 rounded-lg">
@@ -34,6 +38,13 @@
 	</div>
 </div>
 
-<div class="m-2">
+<div class="m-2 min-h-[calc(100vh-104px)]">
 	<slot />
 </div>
+
+<svelte:window bind:innerWidth />
+
+<!-- on window resize kill dog and re-render -->
+{#key innerWidth}
+	<Dog />
+{/key}

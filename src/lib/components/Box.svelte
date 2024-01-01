@@ -6,7 +6,7 @@
 </script>
 
 <a href={hrefURL}>
-	<div class="w-[20rem] bg-base-200 rounded-lg pt-5 pb-6 px-6">
+	<div class="sm:w-[20rem] w-[16rem] bg-base-200 rounded-lg pt-5 pb-6 px-6">
 		{#if headingText}
 			<h1 class="text-2xl font-semibold">
 				{headingText}
