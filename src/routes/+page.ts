@@ -7,5 +7,8 @@ export async function load({ fetch }) {
 	const spotify = await fetch('/api/now-playing')
 	const song: Song = await spotify.json()
 
-	return { posts, song }
+	const steam = await fetch('/api/played-games')
+	const games = await steam.json()
+
+	return { posts, song, games }
 }

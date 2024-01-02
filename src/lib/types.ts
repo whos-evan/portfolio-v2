@@ -16,3 +16,12 @@ export type Song = {
     songUrl: string
     isPlaying: boolean
 }
+
+export type Game = {
+    name: string
+    appid: number
+    playtime: number
+    img_icon_url: string
+    img_logo_url: string
+    playtime_2weeks: number
+}

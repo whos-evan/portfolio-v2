@@ -20,6 +20,14 @@
 		randomPhoneNum = Math.floor(Math.random() * 10000000000);
 	}
 
+	function convertToHumanReadable(num: number) {
+		// minutes to hours and minutes
+		let hours = Math.floor(num / 60);
+		let minutes = num % 60;
+
+		return `${hours} hours and ${minutes} minutes`;
+	}
+
 	// format
 	let randomPhone = randomPhoneNum.toString().replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
 
@@ -116,6 +124,40 @@
 						<p class="sm:text-md text-md text-ellipsis truncate sm:w-48 w-36">{data.song.artist}</p>
 					</div>
 				</a>
+			{/if}
+		</Box>
+
+		<Box>
+			<!-- spotify now playing box -->
+			<h2 class="text-2xl font-semibold">games played</h2>
+			<p class="text-sm text-base-content pb-2">what i've played in the last 2 weeks along with total playtime.</p>
+
+			{#if data.games.totalCount == 0}
+				<p class="text-lg">nothing :(</p>
+			{:else}
+				{#each data.games.games as game}
+					<a
+						class="flex flex-row gap-2 mt-2"
+						href="https://store.steampowered.com/app/{game.appid}"
+					>
+						<div class="flex flex-col my-auto">
+							<div class="flex flex-row gap-2 items-center">
+								<img
+									src="https://media.steampowered.com/steamcommunity/public/images/apps/{game.appid}/{game.img_icon_url}.jpg"
+									alt={game.name + ' game poster.'}
+									class="rounded-sm w-6 h-6"
+								/>
+
+								<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate sm:w-48 w-36">
+									{game.name}
+								</p>
+							</div>
+							<p class="sm:text-md text-md text-ellipsis truncate sm:w-64 w-52">
+								{convertToHumanReadable(game.playtime)}
+							</p>
+						</div>
+					</a>
+				{/each}
 			{/if}
 		</Box>
 
