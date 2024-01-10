@@ -73,7 +73,13 @@
 		</p>
 	</div>
 	<!-- Grid with text saying what they are inputting on the left and the input field on the right with placeholders -->
-	<div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+	<form
+		class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 w-full"
+		on:submit={() => {
+			calculateFinalGrade();
+			openPopup();
+		}}
+	>
 		<div class="max-w-md">
 			<h3 class="text-2xl font-bold">Current Grade</h3>
 			<p class="text-sm text-gray-500">Enter your current grade in the class.</p>
@@ -116,31 +122,30 @@
 			/>
 			%.
 		</div>
-	</div>
-	<!-- Button to calculate the final grade -->
-	<div class="mt-10 flex flex-col items-center justify-center gap-4">
-		<div class="flex flex-row gap-4">
-			<button
-				class="btn btn-accent"
-				on:click={() => {
-					calculateFinalGrade();
-					openPopup();
-				}}
-			>
-				Calculate
-			</button>
+		<!-- Button to calculate the final grade -->
+		<div class="mt-10 flex flex-col items-center justify-center gap-4 col-span-2">
+			<div class="flex flex-row gap-4">
+				<button
+					type="submit"
+					class="btn btn-accent"
+					on:click={() => {
+						calculateFinalGrade();
+						openPopup();
+					}}
+				>
+					Calculate
+				</button>
+			</div>
+			{#if errorMessage != ''}
+				<p class="text-sm text-red-500">{errorMessage}</p>
+			{/if}
 		</div>
-		{#if errorMessage != ''}
-			<p class="text-sm text-red-500">{errorMessage}</p>
-		{/if}
-	</div>
+	</form>
 </div>
 
 <!-- Popup showing their final grade -->
 <dialog id="final_grade" class="modal">
-	<div
-		class="relative max-w-lg rounded-3xl p-8 bg-base-300"
-	>
+	<div class="relative max-w-lg rounded-3xl p-8 bg-base-300">
 		<h1 class="text-center text-4xl font-bold">{popupTitle}</h1>
 		<div class="mt-4 flex flex-row items-center justify-center">
 			<h2 class="mr-2 text-center text-2xl font-bold">{finalGrade}%</h2>
