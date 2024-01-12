@@ -74,7 +74,7 @@
 	</div>
 	<!-- Grid with text saying what they are inputting on the left and the input field on the right with placeholders -->
 	<form
-		class="mt-10 grid grid-cols-1 md:grid-cols-1 gap-4 w-full"
+		class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 w-full"
 		on:submit={() => {
 			calculateFinalGrade();
 			openPopup();
