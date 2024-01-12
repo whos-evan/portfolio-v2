@@ -148,7 +148,7 @@
 	<div class="relative max-w-lg rounded-3xl p-8 bg-base-300">
 		<!-- <h1 class="text-center text-4xl font-bold">{popupTitle}</h1> -->
 		<div class="mt-4 flex flex-row items-center justify-center">
-			<h2 class="mr-2 text-center text-8xl font-black">{finalGrade}%</h2>
+			<h2 class="mr-2 text-center text-8xl font-black -skew-x-6 -skew-y-2">{finalGrade}%</h2>
 		</div>
 		<div class="divider w-12 mx-auto" />
 		<div class="mt-4 text-xl">
