@@ -74,7 +74,7 @@
 	</div>
 	<!-- Grid with text saying what they are inputting on the left and the input field on the right with placeholders -->
 	<form
-		class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 w-full"
+		class="mt-10 grid grid-cols-1 md:grid-cols-1 gap-4 w-full"
 		on:submit={() => {
 			calculateFinalGrade();
 			openPopup();
@@ -123,7 +123,7 @@
 			%.
 		</div>
 		<!-- Button to calculate the final grade -->
-		<div class="mt-10 flex flex-col items-center justify-center gap-4 col-span-2">
+		<div class="mt-10 flex flex-col items-center justify-center gap-4 md:col-span-2 col-span-1">
 			<div class="flex flex-row gap-4">
 				<button
 					type="submit"
@@ -146,10 +146,11 @@
 <!-- Popup showing their final grade -->
 <dialog id="final_grade" class="modal">
 	<div class="relative max-w-lg rounded-3xl p-8 bg-base-300">
-		<h1 class="text-center text-4xl font-bold">{popupTitle}</h1>
+		<!-- <h1 class="text-center text-4xl font-bold">{popupTitle}</h1> -->
 		<div class="mt-4 flex flex-row items-center justify-center">
-			<h2 class="mr-2 text-center text-2xl font-bold">{finalGrade}%</h2>
+			<h2 class="mr-2 text-center text-8xl font-black">{finalGrade}%</h2>
 		</div>
+		<div class="divider w-12 mx-auto" />
 		<div class="mt-4 text-xl">
 			<p>{popupContent}</p>
 			<br />

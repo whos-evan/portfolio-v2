@@ -62,7 +62,22 @@
 	export let carat: boolean = true;
 	let rage: boolean = false;
 
-	const typewriter = setInterval(() => {
+	let originalContent: string = content;
+	$: if (content != originalContent) {
+		text = '';
+		originalContent = content;
+
+		// reset interval
+		clearInterval(typewriter);
+
+		// create a new interval
+		typewriter = setInterval(typewriterFunc, speed);
+
+	}
+
+	let typewriter = setInterval(typewriterFunc, speed)
+
+	function typewriterFunc() {
 		let random = Math.floor(Math.random() * 100);
 		if (Math.floor(Math.random() * 1000) < 1) {
 			// rage by slamming the keyboard
@@ -87,7 +102,9 @@
 			// kill interval
 			clearInterval(typewriter);
 		}
-	}, speed);
+	}
+
+
 
 	let showCarat = true;
 	const zeCarat = setInterval(() => {

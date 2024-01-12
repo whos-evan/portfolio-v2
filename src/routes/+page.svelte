@@ -35,15 +35,15 @@
 	setTimeout(() => {
 		setTimeout(() => {
 			content = 'use the terminal with control + shift + h';
-		}, 1000);
+		}, 25000);
 
 		setTimeout(() => {
 			content = 'or not';
-		}, 10000);
+		}, 50000);
 
 		setTimeout(() => {
 			content = 'hi again :)';
-		}, 16000);
+		}, 60000);
 	}, 5000);
 
 	export let data;

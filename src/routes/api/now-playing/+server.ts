@@ -7,6 +7,24 @@ const basic = btoa(`${client_id}:${client_secret}`)
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`
 
+const swearFilter = [
+    "*nigg*",
+    "*titties*",
+    "*jew*",
+    "*genitals*",
+    "*willy*",
+    "*gay*",
+    "*jizz*",
+    "*dick*",
+    "*porn*",
+    "*penis*",
+    "*masterbation*",
+    "*sex*",
+    "*tiddies*",
+    "*titty*",
+    "*farted*"
+]
+
 const getAccessToken = async () => {
     const response = await fetch(TOKEN_ENDPOINT, {
         method: 'POST',
@@ -39,10 +57,20 @@ export async function GET() {
     
     // clean up the data
     let isPlaying, title, artist, album, albumImageUrl, songUrl;
+    let showSong: boolean = true;
     if (data) {
         isPlaying = data.is_playing;
         if (isPlaying) {
             title = data.item.name;
+            // regex to check for swear words ("*" is wildcard for any number of characters)
+            swearFilter.forEach((swear) => {
+                // if the title contains a swear word, return a 204
+                // replace the * with .*
+                let regex = new RegExp(swear.replace(/\*/g, ".*"), "gi");
+                if (regex.test(title)) {
+                    showSong = false;
+                }
+            })
             artist = data.item.artists.map((_artist) => _artist.name).join(", ");
             album = data.item.album.name;
             albumImageUrl = data.item.album.images[0].url;
@@ -50,6 +78,10 @@ export async function GET() {
         }
     } else {
         return new Response("No data", { status: 204 });
+    }
+
+    if (!showSong) {
+        return json({ isPlaying: false });
     }
 
     const nowPlaying = {
