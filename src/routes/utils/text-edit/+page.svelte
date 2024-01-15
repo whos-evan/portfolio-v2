@@ -4,7 +4,7 @@
 </script>
 
 <div class="p-4">
-	<h1 class="text-5xl font-black text-center mt-2 mb-6">Case Converter</h1>
+	<h1 class="text-5xl font-black text-center mt-2 mb-6">Text Edit</h1>
 
 	<div class="h-[64vh] flex flex-col gap-4">
 		<div class="inline-block h-1/2">
