@@ -42,18 +42,11 @@
 	<slot />
 </div>
 
-<svelte:head>
-	<title>evan</title>
-	<meta name="description" content="evan's thing" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="theme-color" content="#000000" />
-</svelte:head>
-
-<Terminal />
-
 <svelte:window bind:innerWidth />
 
 <!-- on window resize kill dog and re-render -->
 {#key innerWidth}
 	<Dog />
 {/key}
+
+<Terminal />

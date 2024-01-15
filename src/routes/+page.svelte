@@ -49,6 +49,13 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>evan</title>
+	<meta name="description" content="evan's thing" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#000000" />
+</svelte:head>
+
 <div class="text-4xl font-bold text-center mt-6">
 	<Typewriter goofyness={25} bind:text bind:content />
 </div>

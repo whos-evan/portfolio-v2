@@ -63,6 +63,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>evan - final grade calc</title>
+	<meta name="description" content="evan's final grade calculator" />
+</svelte:head>
+
 <div class="rounded-3xl p-8">
 	<h1 class="text-left text-4xl font-bold">Final Grade Calculator</h1>
 	<!-- Text describing what it does -->

@@ -3,6 +3,11 @@
 	let result = '';
 </script>
 
+<svelte:head>
+	<title>evan - text edit</title>
+	<meta name="description" content="evan's text edit thing" />
+</svelte:head>
+
 <div class="p-4">
 	<h1 class="text-5xl font-black text-center mt-2 mb-6">Text Edit</h1>
 

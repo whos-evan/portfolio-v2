@@ -5,6 +5,11 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>evan - blog</title>
+	<meta name="description" content="evan's blog" />
+</svelte:head>
+
 <h1 class="text-4xl font-bold text-center pt-6">
     blog
 </h1>

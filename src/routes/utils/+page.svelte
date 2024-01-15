@@ -5,6 +5,11 @@
 	import Icon from '@iconify/svelte';
 </script>
 
+<svelte:head>
+	<title>evan - utils</title>
+	<meta name="description" content="evan's utils" />
+</svelte:head>
+
 <h1 class="text-4xl font-bold text-center pt-6">utils</h1>
 
 <div
