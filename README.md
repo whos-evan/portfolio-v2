@@ -17,4 +17,4 @@ npm run build
 ```
 
 ### license
-do whatever the f**k you want with it license. (maybe like change the name and stuff)
+the unlicense. just do what you want, maybe like change the name or something.
