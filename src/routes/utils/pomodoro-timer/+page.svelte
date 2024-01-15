@@ -46,8 +46,8 @@
 			stopTimer();
 
 			// play sound
-			// random number 1 to 1000
-			let random = Math.floor(Math.random() * 1000);
+			// random number 1 to 1000 (inclusive)
+			let random = Math.floor(Math.random() * 1000) + 1;
 			if (random == 1) {
 				timerSpecial.play();
 			} else {
@@ -86,9 +86,7 @@
 
 		// stop the interval
 		intervalManager(false);
-
-		// start the interval
-		intervalManager(true);
+		isRunning = false;
 	}
 
 	function startBreak() {
