@@ -50,7 +50,7 @@
 </script>
 
 <div class="text-4xl font-bold text-center mt-6">
-	<Typewriter speed={50} goofyness={25} bind:text bind:content />
+	<Typewriter goofyness={25} bind:text bind:content />
 </div>
 
 {#if ready}
@@ -73,7 +73,7 @@
 		<Box headingText="contact me">
 			<div class="flex flex-col gap-2">
 				<a href="https://discord.com">
-					<div class="rounded-lg bg-purple-500 text-purple-100">
+					<div class="rounded-lg bg-purple-600 text-purple-50">
 						<div class="flex flex-row justify-center items-center gap-2 py-2">
 							<Icon icon="akar-icons:discord-fill" class="text-2xl" />
 							<p class="sm:text-xl text-lg">evan1984</p>
@@ -82,7 +82,7 @@
 				</a>
 
 				<a href="mailto:contact@3van.dev">
-					<div class="rounded-lg bg-orange-500 text-orange-100">
+					<div class="rounded-lg bg-orange-600 text-orange-50">
 						<div class="flex flex-row justify-center items-center gap-2 py-2">
 							<Icon icon="ic:baseline-mail" class="text-2xl" />
 							<p class="sm:text-xl text-lg">contact@3van.dev</p>
@@ -91,7 +91,7 @@
 				</a>
 
 				<a href="tel:{randomPhone}">
-					<div class="rounded-lg bg-green-500 text-green-100">
+					<div class="rounded-lg bg-green-600 text-green-50">
 						<div class="flex flex-row justify-center items-center gap-2 py-2">
 							<Icon icon="solar:phone-bold" class="text-2xl" />
 							<p class="sm:text-xl text-lg">
@@ -101,6 +101,59 @@
 					</div>
 				</a>
 			</div>
+		</Box>
+
+		<Box headingText="philosophy">
+			<table class="table table-xs">
+				<tr>
+					<td>
+						<Icon icon="mdi:internet" class="text-2xl w-6 h-6" />
+					</td>
+					<td>
+						<p class="sm:text-lg text-md">the internet is free.</p>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<Icon icon="material-symbols:person" class="text-2xl w-6 h-6" />
+					</td>
+					<td>
+						<p class="sm:text-lg text-md">the internet is for everyone.</p>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<Icon icon="mdi:information" class="text-2xl w-6 h-6" />
+					</td>
+					<td>
+						<p class="sm:text-lg text-md">information should be free.</p>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<Icon icon="mdi:accessible" class="text-2xl w-6 h-6" />
+					</td>
+					<td>
+						<p class="sm:text-lg text-md">information should be accessible.</p>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<Icon icon="mdi:git" class="text-2xl w-6 h-6" />
+					</td>
+					<td>
+						<p class="sm:text-lg text-md">
+							<a class="hover:underline" href="https://github.com/whos-evan/portfolio-v2"
+								>open source</a
+							> is the way to go.
+						</p>
+					</td>
+				</tr>
+			</table>
 		</Box>
 
 		<Box>
@@ -130,7 +183,9 @@
 		<Box>
 			<!-- spotify now playing box -->
 			<h2 class="text-2xl font-semibold">games played</h2>
-			<p class="text-sm text-base-content pb-2">what i've played in the last 2 weeks along with total playtime.</p>
+			<p class="text-sm text-base-content pb-2">
+				what i've played in the last 2 weeks along with total playtime.
+			</p>
 
 			{#if data.games.totalCount == 0}
 				<p class="text-lg">nothing :(</p>
