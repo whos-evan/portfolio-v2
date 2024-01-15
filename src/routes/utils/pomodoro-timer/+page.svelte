@@ -119,6 +119,11 @@
 	});
 </script>
 
+<svelte:head>
+	<title>evan - pomodoro timer</title>
+	<meta name="description" content="a simple pomodoro timer" />
+</svelte:head>
+
 <audio src="/audio/timer.wav" id="timer" />
 <audio src="/audio/timer-done-special.wav" id="timerSpecial" />
 
@@ -160,8 +165,16 @@
 	</div>
 
 	<div class="flex flex-row gap-2 justify-center">
-		<button on:click={isOnBreak ? startBreak : startTimer} class="btn btn-lg btn-success" disabled={isRunning}>Start</button>
-		<button on:click={isOnBreak ? stopBreak : stopTimer} class="btn btn-lg btn-error" disabled={!isRunning}>Stop</button>
+		<button
+			on:click={isOnBreak ? startBreak : startTimer}
+			class="btn btn-lg btn-success"
+			disabled={isRunning}>Start</button
+		>
+		<button
+			on:click={isOnBreak ? stopBreak : stopTimer}
+			class="btn btn-lg btn-error"
+			disabled={!isRunning}>Stop</button
+		>
 		<button on:click={restartTimer} class="btn btn-lg btn-info">Restart</button>
 	</div>
 
@@ -269,10 +282,17 @@
 
 		<button on:click={setBreak} class="btn btn-lg btn-info" disabled={isRunning}>Set Break</button>
 		{#if !isOnBreak}
-			<button on:click={restartBreak} on:click={startBreak} class="btn btn-lg btn-success">Start Break</button>
+			<button on:click={restartBreak} on:click={startBreak} class="btn btn-lg btn-success"
+				>Start Break</button
+			>
 		{/if}
 		{#if isOnBreak}
-			<button on:click={restartTimer} on:click={restartBreak} on:click={startTimer} class="btn btn-lg btn-error">
+			<button
+				on:click={restartTimer}
+				on:click={restartBreak}
+				on:click={startTimer}
+				class="btn btn-lg btn-error"
+			>
 				Skip Break
 			</button>
 		{/if}
