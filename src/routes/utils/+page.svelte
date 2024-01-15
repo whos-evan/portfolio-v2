@@ -23,6 +23,7 @@
 	/>
 	<Box headingText="final grade calculator" content="calculate your final grade in a class." hrefURL="/utils/final-grade" />
 	<Box headingText="text editor" content="some nice utils for editing text." hrefURL="/utils/text-edit" />
+	<Box headingText="pomodoro timer" content="exactly what you think it is." hrefURL="/utils/pomodoro-timer" />
 	<!-- Coming soon to those who read this for some reason. -->
 	<!-- <Box headingText="freeDNS generator" content="generate a freeDNS domain for your server." hrefURL="/utils/freedns-gen" /> -->
 </div>
