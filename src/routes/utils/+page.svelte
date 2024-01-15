@@ -17,5 +17,7 @@
 		content="some nice utilities i've made."
 	/>
 	<Box headingText="final grade calculator" content="calculate your final grade in a class." hrefURL="/utils/final-grade" />
-	<Box headingText="case converter" content="convert the case of a text." hrefURL="/utils/case-convert" />
+	<Box headingText="text editor" content="some nice utils for editing text." hrefURL="/utils/text-edit" />
+	<!-- Coming soon to those who read this for some reason. -->
+	<!-- <Box headingText="freeDNS generator" content="generate a freeDNS domain for your server." hrefURL="/utils/freedns-gen" /> -->
 </div>
