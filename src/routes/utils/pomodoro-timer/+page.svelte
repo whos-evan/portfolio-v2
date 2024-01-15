@@ -1,103 +1,122 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
-
-	let isRunning = false;
-
-	let totalTime = 1500;
-	let timeRemaining = totalTime;
-	let timeElapsed = 0;
+	import { onDestroy } from 'svelte';
 
 	let hours = 0;
-	let minutes = 0;
+	let minutes = 25;
 	let seconds = 0;
 
-	$: hours = Math.floor(timeRemaining / 3600);
-	$: minutes = Math.floor((timeRemaining % 3600) / 60);
-	$: seconds = Math.floor(timeRemaining % 60);
+	let breakHours = 0;
+	let breakMinutes = 5;
+	let breakSeconds = 0;
 
 	let setHours = 0;
 	let setMinutes = 25;
 	let setSeconds = 0;
-	function setTime() {
-		totalTime = setHours * 3600 + setMinutes * 60 + setSeconds;
-		hours = setHours;
-		minutes = setMinutes;
-		seconds = setSeconds;
 
-		timeRemaining = totalTime;
-
-		intervalManager(false);
-	}
-
-	let breakTime = 300;
 	let setBreakHours = 0;
 	let setBreakMinutes = 5;
 	let setBreakSeconds = 0;
-	function setBreak() {
-		breakTime = setBreakHours * 3600 + setBreakMinutes * 60 + setBreakSeconds;
-	}
 
-	let interval: any;
-	function tick() {
-		timeRemaining--;
-		timeElapsed++;
+	let isRunning = false;
+	let isOnBreak = false;
 
-		if (timeRemaining <= 0) {
-			stopTimer();
-
-			// play sound
-			// random number 1 to 1000 (inclusive)
-			let random = Math.floor(Math.random() * 1000) + 1;
-			if (random == 1) {
-				timerSpecial.play();
-			} else {
-				timer.play();
-			}
-
-			// start break
-			startBreak();
-		}
-	}
-
-	function intervalManager(start: boolean) {
-		if (start) {
-			interval = setInterval(tick, 1000);
-		} else {
-			clearInterval(interval);
-		}
-	}
-
+	let interval;
 	function startTimer() {
 		isRunning = true;
-
-		// start the interval
-		intervalManager(true);
+		interval = setInterval(() => {
+			if (seconds > 0) {
+				seconds--;
+			} else if (minutes > 0) {
+				minutes--;
+				seconds = 59;
+			} else if (hours > 0) {
+				hours--;
+				minutes = 59;
+				seconds = 59;
+			} else {
+				clearInterval(interval);
+				isRunning = false;
+				isOnBreak = true;
+				timer.play();
+				transitionToBreak();
+			}
+		}, 1000);
 	}
 
 	function stopTimer() {
+		clearInterval(interval);
 		isRunning = false;
-
-		// stop the interval
-		intervalManager(false);
 	}
 
 	function restartTimer() {
-		timeRemaining = totalTime;
-
-		// stop the interval
-		intervalManager(false);
+		clearInterval(interval);
 		isRunning = false;
+		isOnBreak = false;
+		hours = setHours;
+		minutes = setMinutes;
+		seconds = setSeconds;
+	}
+
+	function transitionToBreak() {
+		clearInterval(interval);
+		isRunning = false;
+		isOnBreak = true;
 	}
 
 	function startBreak() {
-		timeRemaining = breakTime;
-		isRunning = false;
+		clearInterval(interval);
+		isRunning = true;
+		isOnBreak = true;
 
-		// stop the interval
-		intervalManager(false);
+		interval = setInterval(() => {
+			if (breakSeconds > 0) {
+				breakSeconds--;
+			} else if (breakMinutes > 0) {
+				breakMinutes--;
+				breakSeconds = 59;
+			} else if (breakHours > 0) {
+				breakHours--;
+				breakMinutes = 59;
+				breakSeconds = 59;
+			} else {
+				clearInterval(interval);
+				isRunning = false;
+				isOnBreak = false;
+				timer.play();
+				restartTimer();
+			}
+		}, 1000);
 	}
 
-	onDestroy(stopTimer);
+	function stopBreak() {
+		clearInterval(interval);
+		isRunning = false;
+	}
+
+	function restartBreak() {
+		clearInterval(interval);
+		isRunning = false;
+		isOnBreak = false;
+		breakHours = setBreakHours;
+		breakMinutes = setBreakMinutes;
+		breakSeconds = setBreakSeconds;
+	}
+
+	function setTime() {
+		hours = setHours;
+		minutes = setMinutes;
+		seconds = setSeconds;
+	}
+
+	function setBreak() {
+		breakHours = setBreakHours;
+		breakMinutes = setBreakMinutes;
+		breakSeconds = setBreakSeconds;
+	}
+
+	onDestroy(() => {
+		clearInterval(interval);
+	});
 </script>
 
 <audio src="/audio/timer.wav" id="timer" />
@@ -109,19 +128,31 @@
 		<div class="grid grid-flow-col gap-5 text-center auto-cols-max w-fit mx-auto">
 			<div class="flex flex-col p-2 bg-base-200 rounded-box text-content">
 				<span class="countdown font-mono text-5xl sm:text-8xl">
-					<span style="--value:{hours};"></span>
+					{#if isOnBreak}
+						<span style="--value:{breakHours};"></span>
+					{:else}
+						<span style="--value:{hours};"></span>
+					{/if}
 				</span>
 				hours
 			</div>
 			<div class="flex flex-col p-2 bg-base-200 rounded-box text-content">
 				<span class="countdown font-mono text-5xl sm:text-8xl">
-					<span style="--value:{minutes};"></span>
+					{#if isOnBreak}
+						<span style="--value:{breakMinutes};"></span>
+					{:else}
+						<span style="--value:{minutes};"></span>
+					{/if}
 				</span>
 				min
 			</div>
 			<div class="flex flex-col p-2 bg-base-200 rounded-box text-content">
 				<span class="countdown font-mono text-5xl sm:text-8xl">
-					<span style="--value:{seconds};"></span>
+					{#if isOnBreak}
+						<span style="--value:{breakSeconds};"></span>
+					{:else}
+						<span style="--value:{seconds};"></span>
+					{/if}
 				</span>
 				sec
 			</div>
@@ -129,8 +160,8 @@
 	</div>
 
 	<div class="flex flex-row gap-2 justify-center">
-		<button on:click={startTimer} class="btn btn-lg btn-success" disabled={isRunning}>Start</button>
-		<button on:click={stopTimer} class="btn btn-lg btn-error" disabled={!isRunning}>Stop</button>
+		<button on:click={isOnBreak ? startBreak : startTimer} class="btn btn-lg btn-success" disabled={isRunning}>Start</button>
+		<button on:click={isOnBreak ? stopBreak : stopTimer} class="btn btn-lg btn-error" disabled={!isRunning}>Stop</button>
 		<button on:click={restartTimer} class="btn btn-lg btn-info">Restart</button>
 	</div>
 
@@ -237,9 +268,20 @@
 		</div>
 
 		<button on:click={setBreak} class="btn btn-lg btn-info" disabled={isRunning}>Set Break</button>
-		<button on:click={startBreak} on:click={startTimer} class="btn btn-lg btn-success">Start Break</button>
-		<button on:click={setTime} on:click={startTimer} class="btn btn-lg btn-error">Skip Break</button>
+		{#if !isOnBreak}
+			<button on:click={restartBreak} on:click={startBreak} class="btn btn-lg btn-success">Start Break</button>
+		{/if}
+		{#if isOnBreak}
+			<button on:click={restartTimer} on:click={restartBreak} on:click={startTimer} class="btn btn-lg btn-error">
+				Skip Break
+			</button>
+		{/if}
 	</div>
+
+	<p>
+		{isOnBreak}
+		{isRunning}
+	</p>
 </main>
 
 <style>
