@@ -57,7 +57,9 @@
 		'Z'
 	];
     export let content: string = '';
-	export let speed: number = 150;
+	// Calculate speed based off wpm
+	const wpm = 110;
+	export let speed: number = 60000 / wpm / 5;
 	export let goofyness: number = 25;
 	export let carat: boolean = true;
 	let rage: boolean = false;
@@ -72,7 +74,6 @@
 
 		// create a new interval
 		typewriter = setInterval(typewriterFunc, speed);
-
 	}
 
 	let typewriter = setInterval(typewriterFunc, speed)
