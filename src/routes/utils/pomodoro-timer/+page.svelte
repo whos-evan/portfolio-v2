@@ -102,6 +102,12 @@
 		breakSeconds = setBreakSeconds;
 	}
 
+	function skipBreak() {
+		restartBreak();
+		restartTimer();
+		startTimer();
+	}
+
 	function setTime() {
 		hours = setHours;
 		minutes = setMinutes;
@@ -288,9 +294,7 @@
 		{/if}
 		{#if isOnBreak}
 			<button
-				on:click={restartTimer}
-				on:click={restartBreak}
-				on:click={startTimer}
+				on:click={skipBreak}
 				class="btn btn-lg btn-error"
 			>
 				Skip Break
