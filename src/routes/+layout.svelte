@@ -21,6 +21,7 @@
 		class="absolute mt-1 text-2xl right-6 flex items-center justify-end hover:scale-125 transition-transform"
 		data-toggle-theme="dark,light"
 		data-act-class="ACTIVECLASS"
+		aria-label="toggle theme"
 		on:click={() => theme.update((t) => (t === 'dark' ? 'light' : 'dark'))}
 	>
 		{#if $theme === 'dark'}
@@ -30,13 +31,11 @@
 		{/if}
 	</button>
 
-	<div
-		class="flex flex-row justify-evenly sm:w-[40vw] max-w-[34rem] w-full mx-auto h-8 items-center"
-	>
-		<a href="/blog" class="hover:underline hover:text-xl transition-all"> blog </a>
-		<a href="/" class="hover:underline hover:text-xl transition-all text-center"> home </a>
-		<a href="/projects" class="hover:underline hover:text-xl transition-all"> projects </a>
-	</div>
+	<nav class="flex flex-row justify-evenly sm:w-[40vw] max-w-[34rem] w-full mx-auto h-8 items-center">
+		<a href="/blog" class="hover:underline hover:text-xl transition-all" tabindex=0 aria-label="Go to blog">blog</a>
+		<a href="/" class="hover:underline hover:text-xl transition-all text-center" tabindex=0 aria-label="Go to home">home</a>
+		<a href="/projects" class="hover:underline hover:text-xl transition-all" tabindex=0 aria-label="Go to projects">projects</a>
+	</nav>
 </div>
 
 <div class="m-2 min-h-[calc(100vh-90px)]">
@@ -46,6 +45,8 @@
 <svelte:head>
 	<title>evan</title>
 	<meta name="description" content="evan's thing" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#000000" />
 </svelte:head>
 
 <Terminal />
