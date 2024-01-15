@@ -12,6 +12,7 @@
 				output += '\nabout - show info about me';
 				output += '\ncontact - show contact info';
 				output += '\nprojects - show my projects';
+				output += '\nutils - show my utils';
                 output += '\nclear - clear the terminal';
 				output += '\nexit - close the terminal';
 				break;
@@ -32,6 +33,14 @@
                 setTimeout(() => {
                     window.location.href = '/projects';
                 }, 1000);
+				break;
+			case 'utils':
+				// redirect to utils page
+				output += 'redirecting to utils page...';
+				// sleep for 1 second
+				setTimeout(() => {
+					window.location.href = '/utils';
+				}, 1000);
 				break;
             case 'blog':
                 // redirect to blog page
@@ -104,6 +113,7 @@
                     <span>$</span>
 					<input
 						type="text"
+						area-label="terminal input"
 						class="bg-black font-mono focus:outline-none focus:shadow-none focus:bg-opacity-0 rounded-none"
 						bind:value={input}
 						on:keydown={inputHandler}
