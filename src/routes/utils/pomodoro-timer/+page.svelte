@@ -97,7 +97,6 @@
 		intervalManager(false);
 	}
 
-	onMount(startTimer);
 	onDestroy(stopTimer);
 </script>
 
@@ -238,6 +237,8 @@
 		</div>
 
 		<button on:click={setBreak} class="btn btn-lg btn-info" disabled={isRunning}>Set Break</button>
+		<button on:click={startBreak} on:click={startTimer} class="btn btn-lg btn-success">Start Break</button>
+		<button on:click={setTime} on:click={startTimer} class="btn btn-lg btn-error">Skip Break</button>
 	</div>
 </main>
 
