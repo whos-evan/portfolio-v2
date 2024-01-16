@@ -13,7 +13,7 @@
 				output += '\ncontact - show contact info';
 				output += '\nprojects - show my projects';
 				output += '\nutils - show my utils';
-                output += '\nclear - clear the terminal';
+				output += '\nclear - clear the terminal';
 				output += '\nexit - close the terminal';
 				break;
 			case 'about':
@@ -28,11 +28,11 @@
 				break;
 			case 'projects':
 				// redirect to projects page
-                output += 'redirecting to projects page...';
-                // sleep for 1 second
-                setTimeout(() => {
-                    window.location.href = '/projects';
-                }, 1000);
+				output += 'redirecting to projects page...';
+				// sleep for 1 second
+				setTimeout(() => {
+					window.location.href = '/projects';
+				}, 1000);
 				break;
 			case 'utils':
 				// redirect to utils page
@@ -42,26 +42,26 @@
 					window.location.href = '/utils';
 				}, 1000);
 				break;
-            case 'blog':
-                // redirect to blog page
-                output += 'redirecting to blog page...';
-                // sleep for 1 second
-                setTimeout(() => {
-                    window.location.href = '/blog';
-                }, 1000);
-                break;
-            case 'clear':
-                output = '';
-                content = '';
-                break;
+			case 'blog':
+				// redirect to blog page
+				output += 'redirecting to blog page...';
+				// sleep for 1 second
+				setTimeout(() => {
+					window.location.href = '/blog';
+				}, 1000);
+				break;
+			case 'clear':
+				output = '';
+				content = '';
+				break;
 			case 'exit':
 				output += 'bye!';
-                // sleep for 1 second
-                setTimeout(() => {
-                    const terminal = document.getElementById('terminal');
-                    terminal.close();
-                }, 1000);
-                
+				// sleep for 1 second
+				setTimeout(() => {
+					const terminal = document.getElementById('terminal');
+					terminal.close();
+				}, 1000);
+
 				break;
 			default:
 				output += `${input}: command not found`;
@@ -73,18 +73,17 @@
 
 	function inputHandler(e) {
 		if (e.key === 'Enter') {
-			
-            if(terminalInput(input) === '') {
-                // clear
-                content = '';
-                input = '\n';
-                return;
-            }
-            if (content === '') {
-                content += `$ ${input}`;
-            } else {
-                content += `\n$ ${input}`;
-            }
+			if (terminalInput(input) === '') {
+				// clear
+				content = '';
+				input = '\n';
+				return;
+			}
+			if (content === '') {
+				content += `$ ${input}`;
+			} else {
+				content += `\n$ ${input}`;
+			}
 
 			content += `\n${terminalInput(input)}`;
 			input = '';
@@ -110,7 +109,7 @@
 			<div class="font-mono">
 				<pre>{content}</pre>
 				<div>
-                    <span>$</span>
+					<span>$</span>
 					<input
 						type="text"
 						area-label="terminal input"

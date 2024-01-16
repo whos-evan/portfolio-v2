@@ -84,7 +84,11 @@
 <div class="relative">
 	<div class="absolute bottom-0 mx-auto">
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
-		<div class="dog-sprite-container" id="dogSpriteContainer" on:mousedown={() => startWalkAnimation()}>
+		<div
+			class="dog-sprite-container"
+			id="dogSpriteContainer"
+			on:mousedown={() => startWalkAnimation()}
+		>
 			<div
 				id="dogSprite"
 				class="w-12 h-12"

@@ -31,10 +31,27 @@
 		{/if}
 	</button>
 
-	<nav class="flex flex-row justify-evenly sm:w-[40vw] max-w-[34rem] w-full mx-auto h-8 items-center">
-		<a href="/blog" class="hover:underline hover:text-xl transition-all" tabindex=0 aria-label="Go to blog">blog</a>
-		<a href="/" class="hover:underline hover:text-xl transition-all text-center" tabindex=0 aria-label="Go to home">home</a>
-		<a href="/projects" class="hover:underline hover:text-xl transition-all" tabindex=0 aria-label="Go to projects">projects</a>
+	<nav
+		class="flex flex-row justify-evenly sm:w-[40vw] max-w-[34rem] w-full mx-auto h-8 items-center"
+	>
+		<a
+			href="/blog"
+			class="hover:underline hover:text-xl transition-all"
+			tabindex="0"
+			aria-label="Go to blog">blog</a
+		>
+		<a
+			href="/"
+			class="hover:underline hover:text-xl transition-all text-center"
+			tabindex="0"
+			aria-label="Go to home">home</a
+		>
+		<a
+			href="/projects"
+			class="hover:underline hover:text-xl transition-all"
+			tabindex="0"
+			aria-label="Go to projects">projects</a
+		>
 	</nav>
 </div>
 

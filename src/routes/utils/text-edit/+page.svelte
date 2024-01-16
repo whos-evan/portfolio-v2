@@ -75,42 +75,35 @@
 				Capitalize
 			</button>
 		</div>
-        <div class="flex flex-wrap gap-2">
-            <!-- Convert every space to a new line -->
-            <button
-                class="btn btn-secondary"
-                on:click={() => (result = text.replace(/ /g, '\n'))}
-            >
-                Space to New Line
-            </button>
-            <!-- Convert every new line to a space -->
-            <button
-                class="btn btn-secondary"
-                on:click={() => (result = text.replace(/\n/g, ' '))}
-            >
-                New Line to Space
-            </button>
-        </div>
-        <div class="flex flex-wrap gap-2">
-            <!-- replace text -->
-            <input
-                type="text"
-                placeholder="Replace"
-                class="input input-bordered input-info"
-                id="replace"
-            />
-            <input
-                type="text"
-                placeholder="With"
-                class="input input-bordered input-info"
-                id="with"
-            />
-            <button
-                class="btn btn-info"
-                on:click={() => (result = text.replace(new RegExp(document.getElementById('replace').value, 'g'), document.getElementById('with').value))}
-            >
-                Replace
-            </button>
-        </div>
+		<div class="flex flex-wrap gap-2">
+			<!-- Convert every space to a new line -->
+			<button class="btn btn-secondary" on:click={() => (result = text.replace(/ /g, '\n'))}>
+				Space to New Line
+			</button>
+			<!-- Convert every new line to a space -->
+			<button class="btn btn-secondary" on:click={() => (result = text.replace(/\n/g, ' '))}>
+				New Line to Space
+			</button>
+		</div>
+		<div class="flex flex-wrap gap-2">
+			<!-- replace text -->
+			<input
+				type="text"
+				placeholder="Replace"
+				class="input input-bordered input-info"
+				id="replace"
+			/>
+			<input type="text" placeholder="With" class="input input-bordered input-info" id="with" />
+			<button
+				class="btn btn-info"
+				on:click={() =>
+					(result = text.replace(
+						new RegExp(document.getElementById('replace').value, 'g'),
+						document.getElementById('with').value
+					))}
+			>
+				Replace
+			</button>
+		</div>
 	</div>
 </div>

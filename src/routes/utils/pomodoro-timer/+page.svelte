@@ -293,12 +293,7 @@
 			>
 		{/if}
 		{#if isOnBreak}
-			<button
-				on:click={skipBreak}
-				class="btn btn-lg btn-error"
-			>
-				Skip Break
-			</button>
+			<button on:click={skipBreak} class="btn btn-lg btn-error"> Skip Break </button>
 		{/if}
 	</div>
 

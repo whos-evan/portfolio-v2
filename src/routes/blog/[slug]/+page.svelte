@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Typewriter from '$lib/components/Typewriter.svelte';
-	import { formatDate } from '$lib/utils'
+	import { formatDate } from '$lib/utils';
 
-	export let data
+	export let data;
 </script>
 
 <!-- SEO -->
@@ -13,7 +13,7 @@
 </svelte:head>
 
 <article class="prose lg:prose-xl p-8">
-  <!-- Title -->
+	<!-- Title -->
 	<hgroup class="not-prose">
 		<h1 class="sm:text-6xl text-4xl font-black mb-1">
 			<Typewriter speed={50} goofyness={25} content={data.meta.title} carat={false} />
@@ -21,10 +21,10 @@
 		<p>Published at {formatDate(data.meta.date)}</p>
 	</hgroup>
 
-    <!-- divider -->
-    <hr class="my-2" />
+	<!-- divider -->
+	<hr class="my-2" />
 
-    <!-- Post -->
+	<!-- Post -->
 	<div>
 		<svelte:component this={data.content} />
 	</div>

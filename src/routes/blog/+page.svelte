@@ -10,16 +10,14 @@
 	<meta name="description" content="evan's blog" />
 </svelte:head>
 
-<h1 class="text-4xl font-bold text-center pt-6">
-    blog
-</h1>
+<h1 class="text-4xl font-bold text-center pt-6">blog</h1>
 
 <div
 	class="mt-6 flex flex-col gap-4 justify-center items-center"
-    in:fade={{ duration: 250 }}
-    out:fade={{ duration: 0 }}
+	in:fade={{ duration: 250 }}
+	out:fade={{ duration: 0 }}
 >
 	{#each data.posts as post}
-        <Box hrefURL="/blog/{post.slug}" headingText={post.title} content="{post.description}" />
+		<Box hrefURL="/blog/{post.slug}" headingText={post.title} content={post.description} />
 	{/each}
 </div>

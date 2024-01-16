@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let text = '';
-    let mistakes = 0;
+	let mistakes = 0;
 	let characters = [
 		'a',
 		'b',
@@ -56,7 +56,7 @@
 		'Y',
 		'Z'
 	];
-    export let content: string = '';
+	export let content: string = '';
 	// Calculate speed based off wpm
 	const wpm = 110;
 	export let speed: number = 60000 / wpm / 5;
@@ -76,7 +76,7 @@
 		typewriter = setInterval(typewriterFunc, speed);
 	}
 
-	let typewriter = setInterval(typewriterFunc, speed)
+	let typewriter = setInterval(typewriterFunc, speed);
 
 	function typewriterFunc() {
 		let random = Math.floor(Math.random() * 100);
@@ -104,8 +104,6 @@
 			clearInterval(typewriter);
 		}
 	}
-
-
 
 	let showCarat = true;
 	const zeCarat = setInterval(() => {

@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import Box from '$lib/components/Box.svelte';
-
-	import Icon from '@iconify/svelte';
 </script>
 
 <svelte:head>
