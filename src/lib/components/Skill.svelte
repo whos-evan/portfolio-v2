@@ -43,7 +43,7 @@
 		<p class="text-xl">{skillText}</p>
 	</div>
 	<div class="w-full">
-		<div class="bg-gray-200 h-6 rounded-lg">
+		<div class="bg-base-300 h-6 rounded-lg">
 			<div
 				class="h-6 rounded-lg flex items-center"
 				style="width: {skillPercentageString}; background-color: {skillColor}"
