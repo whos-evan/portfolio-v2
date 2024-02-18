@@ -10,6 +10,7 @@
 	});
 
 	import Icon from '@iconify/svelte';
+	import Skill from '$lib/components/Skill.svelte';
 
 	let text: string;
 	let content: string = "hello i'm evan!";
@@ -63,7 +64,7 @@
 {#if ready}
 	<!-- random stuff about me -->
 	<div
-		class="mt-6 flex flex-col gap-4 justify-center items-center"
+		class="mt-6 flex flex-col cols-2 gap-4 justify-center items-center"
 		transition:fade={{ duration: 250 }}
 	>
 		<Box
@@ -107,6 +108,58 @@
 						</div>
 					</div>
 				</a>
+			</div>
+		</Box>
+
+		<Box headingText="skills">
+			<div class="flex flex-col gap-2">
+				<!-- docker -->
+				<Skill
+					skillText="docker"
+					skillPercentage={95}
+					skillIcon="vscode-icons:file-type-docker"
+					skillColor="#2496ed"
+				/>
+
+				<!-- tailwind -->
+				<Skill
+					skillText="tailwind css"
+					skillPercentage={95}
+					skillIcon="vscode-icons:file-type-tailwind"
+					skillColor="#38b2ac"
+				/>
+
+				<!-- svelte -->
+				<Skill
+					skillText="svelte"
+					skillPercentage={85}
+					skillIcon="vscode-icons:file-type-svelte"
+					skillColor="#ff3e00"
+				/>
+
+				<!-- python -->
+				<Skill
+					skillText="python"
+					skillPercentage={70}
+					skillIcon="vscode-icons:file-type-python"
+					skillColor="#3776ab"
+				/>
+
+				<!-- javascript -->
+				<Skill
+					skillText="javascript"
+					skillPercentage={55}
+					skillIcon="vscode-icons:file-type-js-official"
+					skillColor="#f7df1e"
+				/>
+
+				<!-- typescript -->
+				<Skill
+					skillText="typescript"
+					skillPercentage={45}
+					skillIcon="vscode-icons:file-type-typescript-official"
+					skillColor="#007acc"
+				/>
 			</div>
 		</Box>
 
