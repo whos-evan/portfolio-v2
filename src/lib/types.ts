@@ -15,6 +15,7 @@ export type Song = {
 	albumImageUrl: string;
 	songUrl: string;
 	isPlaying: boolean;
+	previewUrl: string;
 };
 
 export type Game = {

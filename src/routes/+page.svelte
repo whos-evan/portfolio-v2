@@ -11,6 +11,7 @@
 
 	import Icon from '@iconify/svelte';
 	import Skill from '$lib/components/Skill.svelte';
+	import PlayingBox from '$lib/components/PlayingBox.svelte';
 
 	let text: string;
 	let content: string = "hello i'm evan!";
@@ -62,6 +63,8 @@
 </div>
 
 {#if ready}
+	<PlayingBox audioUrl={data.song.previewUrl} />
+
 	<!-- random stuff about me -->
 	<div
 		class="mt-6 flex flex-col cols-2 gap-4 justify-center items-center"

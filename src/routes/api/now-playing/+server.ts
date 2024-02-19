@@ -1,3 +1,4 @@
+import type { Song } from '$lib/types';
 import { json } from '@sveltejs/kit';
 const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 const client_secret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
@@ -56,7 +57,7 @@ export async function GET() {
 	}
 
 	// clean up the data
-	let isPlaying, title, artist, album, albumImageUrl, songUrl;
+	let isPlaying, title, artist, album, albumImageUrl, songUrl, previewUrl;
 	let showSong: boolean = true;
 	if (data) {
 		isPlaying = data.is_playing;
@@ -75,6 +76,7 @@ export async function GET() {
 			album = data.item.album.name;
 			albumImageUrl = data.item.album.images[0].url;
 			songUrl = data.item.external_urls.spotify;
+			previewUrl = data.item.preview_url;
 		}
 	} else {
 		return new Response('No data', { status: 204 });
@@ -84,13 +86,14 @@ export async function GET() {
 		return json({ isPlaying: false });
 	}
 
-	const nowPlaying = {
+	const nowPlaying: Song = {
 		isPlaying,
 		title,
 		artist,
 		album,
 		albumImageUrl,
-		songUrl
+		songUrl,
+		previewUrl
 	};
 
 	return json(nowPlaying);
