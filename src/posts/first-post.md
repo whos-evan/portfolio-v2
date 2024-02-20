@@ -3,6 +3,7 @@ title: happy new year!
 description: new years post!
 date: '2023-12-31'
 published: true
+sensitive: false
 ---
 
 ## what does one write?

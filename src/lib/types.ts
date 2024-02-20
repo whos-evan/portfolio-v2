@@ -6,6 +6,7 @@ export type Post = {
 	description: string;
 	date: string;
 	published: boolean;
+	sensitive: boolean;
 };
 
 export type Song = {
