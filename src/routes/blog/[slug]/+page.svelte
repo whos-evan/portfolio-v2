@@ -1,25 +1,10 @@
 <script lang="ts">
 	import Typewriter from '$lib/components/Typewriter.svelte';
 	import { formatDate } from '$lib/utils';
-	import { onMount } from 'svelte';
 
 	export let data;
 
 	let accepted = data.meta.sensitive ? false : true;
-
-	onMount(() => {
-		if (data.meta.sensitive) {
-			const dialog = document.getElementById('sentitive');
-			dialog.showModal();
-		}
-	});
-
-	$: if (accepted) {
-		if(typeof window !== 'undefined') {
-			const dialog = document.getElementById('sentitive');
-			dialog.close();
-		}
-	}
 </script>
 
 <!-- SEO -->
@@ -28,21 +13,23 @@
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content={data.meta.title} />
 	<meta property="og:description" content={data.meta.description} />
-	
+
 	<!-- author -->
 	<meta name="author" content="evan" />
 </svelte:head>
 
-<dialog id="sentitive" class="modal">
-	<div class="modal-box">
-		<h1 class="text-4xl font-black mb-1">Sensitive Content</h1>
-		<p class="mb-4">This post contains sensitive content. Are you sure you want to continue?</p>
-		<div class="flex w-full gap-2">
-			<button class="btn btn-success flex-1" on:click={() => (accepted = true)}>Yes</button>
-			<button class="btn btn-error flex-1" on:click={() => (location.href = '/')}>No</button>
+{#if !accepted}
+	<dialog id="sentitive" class="modal">
+		<div class="modal-box">
+			<h1 class="text-4xl font-black mb-1">Sensitive Content</h1>
+			<p class="mb-4">This post contains sensitive content. Are you sure you want to continue?</p>
+			<div class="flex w-full gap-2">
+				<button class="btn btn-success flex-1" on:click={() => (accepted = true)}>Yes</button>
+				<button class="btn btn-error flex-1" on:click={() => (location.href = '/')}>No</button>
+			</div>
 		</div>
-	</div>
-</dialog>
+	</dialog>
+{/if}
 
 <article class="prose lg:prose-xl p-8" style={accepted ? '' : 'filter: blur(10px);'}>
 	<!-- Title -->
