@@ -59,7 +59,7 @@
 </svelte:head>
 
 <div class="text-4xl font-bold text-center mt-6">
-	<Typewriter goofyness={25} bind:text bind:content />
+	<Typewriter goofiness={25} bind:text bind:content />
 </div>
 
 {#if ready}
