@@ -1,10 +1,17 @@
 <script lang="ts">
 	import Typewriter from '$lib/components/Typewriter.svelte';
 	import { formatDate } from '$lib/utils';
+	import { onMount } from 'svelte';
 
 	export let data;
 
 	let accepted = data.meta.sensitive ? false : true;
+	onMount(async () => {
+		if (data.meta.sensitive) {
+			const dialog = document.getElementById('sentitive');
+			dialog.showModal();
+		}
+	});
 </script>
 
 <!-- SEO -->
