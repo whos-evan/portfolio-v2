@@ -42,7 +42,7 @@
 	<!-- Title -->
 	<hgroup class="not-prose">
 		<h1 class="sm:text-6xl text-4xl font-black mb-1">
-			<Typewriter speed={50} goofiness={25} content={data.meta.title} carat={false} />
+			<Typewriter speed={45} goofiness={5} content={data.meta.title} carat={false} />
 		</h1>
 		<p>Published at {formatDate(data.meta.date)}</p>
 	</hgroup>

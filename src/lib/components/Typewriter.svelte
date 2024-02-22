@@ -58,8 +58,7 @@
 	];
 	export let content: string = '';
 	// Calculate speed based off wpm
-	const wpm = 110;
-	export let speed: number = 60000 / wpm / 5;
+	export let speed: number = 100;
 	export let goofiness: number = 25;
 	export let carat: boolean = true;
 	let rage: boolean = false;
