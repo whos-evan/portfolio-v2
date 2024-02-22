@@ -285,6 +285,12 @@
 			hrefURL="/utils"
 		/>
 
+		<Box
+			headingText="recommendations for software"
+			content="just some recommendations for software i use."
+			hrefURL="/recommendations"
+		/>
+
 		{#each data.posts as post}
 			<Box hrefURL="/blog/{post.slug}" headingText={post.title} content={post.description} />
 		{/each}
