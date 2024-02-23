@@ -11,7 +11,7 @@
 <h1 class="text-4xl font-bold text-center pt-6">utils</h1>
 
 <div
-	class="mt-6 flex flex-col gap-4 justify-center items-center"
+	class="mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 w-fit mx-auto gap-4 justify-center items-center"
 	in:fade={{ duration: 250 }}
 	out:fade={{ duration: 0 }}
 >

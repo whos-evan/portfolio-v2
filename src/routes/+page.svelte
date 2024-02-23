@@ -67,7 +67,7 @@
 
 	<!-- random stuff about me -->
 	<div
-		class="mt-6 flex flex-col cols-2 gap-4 justify-center items-center"
+		class="mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 w-fit mx-auto gap-4 justify-center items-center"
 		transition:fade={{ duration: 250 }}
 	>
 		<Box
@@ -166,59 +166,6 @@
 			</div>
 		</Box>
 
-		<Box headingText="philosophy">
-			<table class="table table-xs">
-				<tr>
-					<td>
-						<Icon icon="mdi:internet" class="text-2xl w-6 h-6" />
-					</td>
-					<td>
-						<p class="sm:text-lg text-md">the internet is free.</p>
-					</td>
-				</tr>
-
-				<tr>
-					<td>
-						<Icon icon="material-symbols:person" class="text-2xl w-6 h-6" />
-					</td>
-					<td>
-						<p class="sm:text-lg text-md">the internet is for everyone.</p>
-					</td>
-				</tr>
-
-				<tr>
-					<td>
-						<Icon icon="mdi:information" class="text-2xl w-6 h-6" />
-					</td>
-					<td>
-						<p class="sm:text-lg text-md">information should be free.</p>
-					</td>
-				</tr>
-
-				<tr>
-					<td>
-						<Icon icon="mdi:accessible" class="text-2xl w-6 h-6" />
-					</td>
-					<td>
-						<p class="sm:text-lg text-md">information should be accessible.</p>
-					</td>
-				</tr>
-
-				<tr>
-					<td>
-						<Icon icon="mdi:git" class="text-2xl w-6 h-6" />
-					</td>
-					<td>
-						<p class="sm:text-lg text-md">
-							<a class="hover:underline" href="https://github.com/whos-evan/portfolio-v2"
-								>open source</a
-							> is the way to go.
-						</p>
-					</td>
-				</tr>
-			</table>
-		</Box>
-
 		<Box>
 			<!-- spotify now playing box -->
 			<h2 class="text-2xl font-semibold">now playing</h2>
@@ -227,17 +174,17 @@
 			{#if data.song.isPlaying == false}
 				<p class="text-lg">nothing is playing right now :(</p>
 			{:else}
-				<a class="flex flex-row gap-2 mt-2" href={data.song.songUrl}>
+				<a class="flex flex-col gap-2" href={data.song.songUrl}>
 					<img
 						src={data.song.albumImageUrl}
 						alt={data.song.title + ' album art.'}
-						class="rounded-lg w-16 h-16"
+						class="rounded-lg w-full mt-2"
 					/>
 					<div class="flex flex-col my-auto">
-						<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate sm:w-48 w-36">
+						<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate w-5/6">
 							{data.song.title}
 						</p>
-						<p class="sm:text-md text-md text-ellipsis truncate sm:w-48 w-36">{data.song.artist}</p>
+						<p class="sm:text-md text-md text-ellipsis truncate sm:w-52 w-36">{data.song.artist}</p>
 					</div>
 				</a>
 			{/if}
@@ -290,6 +237,18 @@
 			content="just some recommendations for software i use."
 			hrefURL="/recommendations"
 		/>
+	</div>
+
+	<!-- divider -->
+	<div class="mt-8 w-12 mx-auto">
+		<hr />
+	</div>
+
+	<div
+		class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 w-fit mx-auto gap-4 justify-center items-center mt-2"
+		transition:fade={{ duration: 250 }}
+	>
+		<h1 class="text-4xl font-bold text-center col-span-full my-4">blog posts</h1>
 
 		{#each data.posts as post}
 			<Box hrefURL="/blog/{post.slug}" headingText={post.title} content={post.description} />
