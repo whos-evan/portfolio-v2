@@ -48,6 +48,40 @@
 		}, 60000);
 	}, 5000);
 
+	onMount(async () => {
+		function scrollThruPlaylist() {
+			let playlist = document.getElementById('playlist');
+			let scrollInterval;
+
+			function startScrolling() {
+				scrollInterval = setInterval(() => {
+					playlist.scrollTop += 2;
+
+					if (playlist.scrollTop - 3 >= playlist.scrollHeight - playlist.clientHeight) {
+						playlist.scrollTop = 0;
+					}
+				}, 50);
+			}
+
+			function stopScrolling() {
+				clearInterval(scrollInterval);
+			}
+
+			playlist.addEventListener('mouseenter', stopScrolling);
+			playlist.addEventListener('mouseleave', startScrolling);
+			playlist?.addEventListener('touchstart', stopScrolling);
+
+			startScrolling();
+		}
+
+		let interval = setInterval(() => {
+			if (document.getElementById('playlist')) {
+				scrollThruPlaylist();
+				clearInterval(interval);
+			}
+		}, 500);
+	})
+
 	export let data;
 </script>
 
@@ -187,6 +221,37 @@
 						<p class="sm:text-md text-md text-ellipsis truncate sm:w-52 w-36">{data.song.artist}</p>
 					</div>
 				</a>
+			{/if}
+		</Box>
+
+		<Box>
+			<!-- spotify now playing box -->
+			<h2 class="text-2xl font-semibold">{data.playlist.title}</h2>
+			<p class="text-sm text-base-content pb-2">{data.playlist.description}</p>
+
+			{#if data.playlist.songs.length == 0}
+				<p class="text-lg">nothing :(</p>
+			{:else}
+			<!-- slowly scroll -->
+				<div class="max-h-72 overflow-y-scroll overflow-x-hidden scroll-smooth" id="playlist">
+					{#each data.playlist.songs as song}
+						<a class="flex flex-row gap-2 max-h-52" href={song.songUrl}>
+							<!-- cover art on the left with song title and description to the right -->
+							<img
+								src={song.albumImageUrl}
+								alt={song.title + ' album art.'}
+								class="rounded-lg w-12 h-12"
+							/>
+
+							<div class="flex flex-col my-auto w-full">
+								<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate w-5/6">
+									{song.title}
+								</p>
+								<p class="sm:text-md text-md text-ellipsis truncate w-5/6">{song.artist}</p>
+							</div>
+						</a>
+					{/each}
+				</div>
 			{/if}
 		</Box>
 

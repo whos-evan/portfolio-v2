@@ -9,6 +9,22 @@ export type Post = {
 	sensitive: boolean;
 };
 
+export type Playlist = {
+	title: string;
+	description: string;
+	songs: PlaylistSong[];
+};
+
+export type PlaylistSong = {
+	title: string;
+	artist: string;
+	album: string;
+	albumImageUrl: string;
+	songUrl: string;
+	previewUrl: string;
+};
+
+
 export type Song = {
 	title: string;
 	artist: string;
