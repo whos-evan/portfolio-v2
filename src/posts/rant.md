@@ -20,8 +20,8 @@ Another few bad things:
 1. There is absolutely no alternative to Shortcuts for Android. (Tasker sucks)
 2. The finger print reader on the Pixel 8 Pro is way too slow for my liking.
 3. I miss Face ID.
-4. The Pixel 8 Pro is just slower in every single way compared to my old iPhone.
-5. Google Gemini cannot be an assistant, it's insane for the most complex tasks (asking when a certain niche event is) and it's terrible for the basic things (sending a message).
+4. The Pixel 8 Pro is just slower in every way compared to my old iPhone.
+5. Google Gemini is a mess. It’s terrible at complex tasks (like finding niche events) and bad at basic ones (like sending a message).
 
 Some good:
 1. The camera.
