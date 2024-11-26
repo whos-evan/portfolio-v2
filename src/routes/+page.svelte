@@ -182,14 +182,6 @@
 					skillColor="#3776ab"
 				/>
 
-				<!-- javascript -->
-				<Skill
-					skillText="javascript"
-					skillPercentage={65}
-					skillIcon="vscode-icons:file-type-js-official"
-					skillColor="#f7df1e"
-				/>
-
 				<!-- typescript -->
 				<Skill
 					skillText="typescript"
