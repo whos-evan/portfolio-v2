@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { loadIcons } from '@iconify/svelte';
+	import { onMount } from 'svelte';
 
 	export let skillText: string = '';
 	export let skillPercentage: number = 0;
@@ -35,6 +36,13 @@
 	}
 
 	let skillPercentageString = skillPercentage.toString() + '%';
+	let skillBarWidth = 0;
+
+	onMount(() => {
+		setTimeout(() => {
+			skillBarWidth = skillPercentage;
+		}, 100);
+	});
 </script>
 
 <div class="flex flex-col items-left">
@@ -45,8 +53,8 @@
 	<div class="w-full">
 		<div class="bg-base-300 h-6 rounded-lg">
 			<div
-				class="h-6 rounded-lg flex items-center"
-				style="width: {skillPercentageString}; background-color: {skillColor}"
+				class="h-6 rounded-lg flex items-center transition-all duration-1000"
+				style="width: {skillBarWidth}%; background-color: {skillColor}"
 			>
 				<p class="text-md ml-2" style="color: {readableColor(skillColor)}">
 					{skillPercentageString}

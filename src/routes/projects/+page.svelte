@@ -16,6 +16,12 @@
 >
 	<Box headingText="info" content="just some projects i've worked on." />
 	<Box
+		headingText="this portfolio"
+		hrefURL="https://3van.dev"
+		content="cool portfolio site made with sveltekit and tailwindcss. lots of eastereggs and small details."
+		imageURL="/screenshots/3van.png"
+	/>
+	<Box
 		headingText="kazwire"
 		hrefURL="https://kazwire.com"
 		content="massive game site along with a proxy to let students have unfiltered access to the internet."
