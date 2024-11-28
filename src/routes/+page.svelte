@@ -33,16 +33,8 @@
 	// format
 	let randomPhone = randomPhoneNum.toString().replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
 
-	// in 10 seconds change content to something else
+	// change content to something else
 	setTimeout(() => {
-		setTimeout(() => {
-			content = 'use the terminal with control + shift + h';
-		}, 25000);
-
-		setTimeout(() => {
-			content = 'or not';
-		}, 50000);
-
 		setTimeout(() => {
 			content = 'hi again :)';
 		}, 60000);
@@ -67,11 +59,19 @@
 				clearInterval(scrollInterval);
 			}
 
-			playlist.addEventListener('mouseenter', stopScrolling);
-			playlist.addEventListener('mouseleave', startScrolling);
+			playlist?.addEventListener('mouseenter', stopScrolling);
+			playlist?.addEventListener('mouseleave', startScrolling);
 			playlist?.addEventListener('touchstart', stopScrolling);
 
-			startScrolling();
+			// if hovering over any part of the playlist on load, stop scrolling
+			if (playlist?.matches(':hover')) {
+				stopScrolling();
+			} else {
+				startScrolling();
+			}
+
+
+			
 		}
 
 		let interval = setInterval(() => {
@@ -182,20 +182,19 @@
 					skillColor="#3776ab"
 				/>
 
-				<!-- javascript -->
-				<Skill
-					skillText="javascript"
-					skillPercentage={55}
-					skillIcon="vscode-icons:file-type-js-official"
-					skillColor="#f7df1e"
-				/>
-
 				<!-- typescript -->
 				<Skill
 					skillText="typescript"
-					skillPercentage={45}
+					skillPercentage={55}
 					skillIcon="vscode-icons:file-type-typescript-official"
 					skillColor="#007acc"
+				/>
+
+				<Skill
+					skillText="java"
+					skillPercentage={50}
+					skillIcon="vscode-icons:file-type-java"
+					skillColor="#5382a1"
 				/>
 			</div>
 		</Box>
