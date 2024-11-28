@@ -6,6 +6,8 @@ published: true
 sensitive: false
 ---
 
+**Update**: I switched back to iOS...
+
 This will be short and sweet, maybe.
 
 Which Android engineer thought it was a good idea to treat alarms like regular notifications? Honestly, this might be the most insane, stupid decision ever made by a software engineer. I understand the principle that every app should be treated equally--but NOT the clock app.
