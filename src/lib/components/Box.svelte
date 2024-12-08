@@ -5,6 +5,7 @@
 	export let content: string | undefined = undefined;
 	export let imageURL: string | undefined = undefined;
 	export let hrefURL: string | undefined = undefined;
+	export let aspectRatio: string | undefined = undefined;
 </script>
 
 <a href={hrefURL} class="h-full flex-grow">
@@ -16,7 +17,7 @@
 	{/if}
 
 	<div
-		class="sm:w-[20rem] w-[18rem] bg-base-200 rounded-lg pt-5 pb-6 px-6 h-full flex flex-col justify-center"
+		class="sm:w-[20rem] w-[18rem] bg-base-200 rounded-lg pt-5 pb-6 px-6 h-full flex flex-col justify-center" style="aspect-ratio: {aspectRatio}"
 	>
 		{#if headingText}
 			<div class="flex items-center gap-1">

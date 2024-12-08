@@ -8,23 +8,11 @@ const basic = btoa(`${client_id}:${client_secret}`);
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
-const swearFilter = [
-	'*nigg*',
-	'*titties*',
-	'*jew*',
-	'*genitals*',
-	'*willy*',
-	'*gay*',
-	'*jizz*',
-	'*dick*',
-	'*porn*',
-	'*penis*',
-	'*masterbation*',
-	'*sex*',
-	'*tiddies*',
-	'*titty*',
-	'*farted*'
-];
+import Genius from "genius-lyrics";
+
+import { swearFilter } from '$lib';
+import { VITE_GENIUS_ACCESS_TOKEN } from '$env/static/private';
+
 
 const getAccessToken = async () => {
 	const response = await fetch(TOKEN_ENDPOINT, {
@@ -57,7 +45,7 @@ export async function GET() {
 	}
 
 	// clean up the data
-	let isPlaying, title, artist, album, albumImageUrl, songUrl, previewUrl;
+	let isPlaying: boolean = false, title: string = '', artist: string = '', album: string = '', albumImageUrl: string = '', songUrl: string = '', previewUrl: string = '';
 	let showSong: boolean = true;
 	if (data) {
 		isPlaying = data.is_playing;
@@ -86,6 +74,31 @@ export async function GET() {
 		return json({ isPlaying: false });
 	}
 
+	let lyrics = '';
+	try {
+		const Client = new Genius.Client(VITE_GENIUS_ACCESS_TOKEN);
+		const songs = await Client.songs.search(title + ' ' + artist);
+		const lyricsFromGenius = await songs[0].lyrics();
+
+		lyrics = lyricsFromGenius;
+
+		// regex to check for swear words ("*" is wildcard for any number of characters)
+		
+		swearFilter.forEach((swear) => {
+			// if the lyrics contain a swear word, return a 204
+			// replace the * with .*
+			// just remove the word from the lyrics
+			const regex = new RegExp(swear.replace(/\*/g, '.*'), 'gi');
+			lyrics = lyrics.replace(regex, '');
+		});
+
+		// remove anything that contains "[]"
+		lyrics = lyrics.replace(/\[.*\]/g, '');
+		
+	} catch (error) {
+		console.error(error);
+	}
+
 	const nowPlaying: Song = {
 		isPlaying,
 		title,
@@ -93,7 +106,8 @@ export async function GET() {
 		album,
 		albumImageUrl,
 		songUrl,
-		previewUrl
+		previewUrl,
+		lyrics // Add lyrics to the response
 	};
 
 	return json(nowPlaying);

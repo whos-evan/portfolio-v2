@@ -1,1 +1,17 @@
-// place files you want to import through the `$lib` alias in this folder.
+export const swearFilter = [
+	'*nigger*',
+	'*titties*',
+	'*jew*',
+	'*genitals*',
+	'*willy*',
+	'*gay*',
+	'*jizz*',
+	'*dick*',
+	'*porn*',
+	'*penis*',
+	'*masterbation*',
+	'*sex*',
+	'*tiddies*',
+	'*titty*',
+	'*farted*'
+];

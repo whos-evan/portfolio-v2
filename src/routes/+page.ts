@@ -1,17 +1,15 @@
 import type { Post, Song, Playlist } from '$lib/types';
 
 export async function load({ fetch }) {
-	const response = await fetch('api/posts');
-	const posts: Post[] = await response.json();
+	let response = await fetch('api/posts');
+	let spotify = await fetch('/api/now-playing');
+	let spotifyPlaylist = await fetch('/api/playlist');
+	let steam = await fetch('/api/played-games');
 
-	const spotify = await fetch('/api/now-playing');
-	const song: Song = await spotify.json();
-
-	const spotifyPlaylist = await fetch('/api/playlist');
-	const playlist: Playlist = await spotifyPlaylist.json();
-
-	const steam = await fetch('/api/played-games');
-	const games = await steam.json();
-
-	return { posts, song, games, playlist };
+	return {
+		posts: response.json(),
+		song: spotify.json(),
+		playlist: spotifyPlaylist.json(),
+		games: steam.json()
+	};
 }

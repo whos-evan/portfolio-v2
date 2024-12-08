@@ -69,9 +69,6 @@
 			} else {
 				startScrolling();
 			}
-
-
-			
 		}
 
 		let interval = setInterval(() => {
@@ -80,7 +77,33 @@
 				clearInterval(interval);
 			}
 		}, 500);
-	})
+	});
+
+	onMount(async () => {
+		function scrollLyrics() {
+			let lyricsDiv = document.getElementById('lyrics');
+			let scrollInterval;
+
+			function startScrolling() {
+				scrollInterval = setInterval(() => {
+					lyricsDiv.scrollTop += 1;
+
+					if (lyricsDiv.scrollTop >= lyricsDiv.scrollHeight - lyricsDiv.clientHeight) {
+						lyricsDiv.scrollTop = 0;
+					}
+				}, 50);
+			}
+
+			startScrolling();
+		}
+
+		let interval = setInterval(() => {
+			if (document.getElementById('lyrics')) {
+				scrollLyrics();
+				clearInterval(interval);
+			}
+		}, 500);
+	});
 
 	export let data;
 </script>
@@ -92,16 +115,20 @@
 	<meta name="theme-color" content="#000000" />
 </svelte:head>
 
-<div class="text-4xl font-bold text-center mt-6">
+<div class="relative text-4xl font-bold text-center mt-6 z-20">
 	<Typewriter goofiness={25} bind:text bind:content />
 </div>
 
 {#if ready}
-	<PlayingBox audioUrl={data.song.previewUrl} />
+	{#await data.song then song}
+		{#if song.previewUrl}
+			<PlayingBox audioUrl={song.previewUrl} />
+		{/if}
+	{/await}
 
 	<!-- random stuff about me -->
 	<div
-		class="mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 w-fit mx-auto gap-4 justify-center items-center"
+		class="relative mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 w-fit mx-auto gap-4 justify-center items-center z-20"
 		transition:fade={{ duration: 250 }}
 	>
 		<Box
@@ -204,54 +231,60 @@
 			<h2 class="text-2xl font-semibold">now playing</h2>
 			<p class="text-sm text-base-content pb-2">what i'm listening to on spotify.</p>
 
-			{#if data.song.isPlaying == false}
-				<p class="text-lg">nothing is playing right now :(</p>
-			{:else}
-				<a class="flex flex-col gap-2" href={data.song.songUrl}>
-					<img
-						src={data.song.albumImageUrl}
-						alt={data.song.title + ' album art.'}
-						class="rounded-lg w-full mt-2"
-					/>
-					<div class="flex flex-col my-auto">
-						<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate w-5/6">
-							{data.song.title}
-						</p>
-						<p class="sm:text-md text-md text-ellipsis truncate sm:w-52 w-36">{data.song.artist}</p>
-					</div>
-				</a>
-			{/if}
+			{#await data.song then song}
+				{#if song.isPlaying == false}
+					<p class="text-lg">nothing is playing right now :(</p>
+				{:else}
+					<a class="flex flex-col gap-2 relative z-20" href={song.songUrl}>
+						<img
+							src={song.albumImageUrl}
+							alt={song.title + ' album art.'}
+							class="rounded-lg w-full mt-2"
+						/>
+						<div class="flex flex-col my-auto">
+							<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate w-5/6">
+								{song.title}
+							</p>
+							<p class="sm:text-md text-md text-ellipsis truncate sm:w-52 w-36">
+								{song.artist}
+							</p>
+						</div>
+					</a>
+				{/if}
+			{/await}
 		</Box>
 
 		<Box>
-			<!-- spotify now playing box -->
-			<h2 class="text-2xl font-semibold">{data.playlist.title}</h2>
-			<p class="text-sm text-base-content pb-2">{data.playlist.description}</p>
+			{#await data.playlist then playlist}
+				<!-- spotify now playing box -->
+				<h2 class="text-2xl font-semibold">{playlist.title}</h2>
+				<p class="text-sm text-base-content pb-2">{playlist.description}</p>
 
-			{#if data.playlist.songs.length == 0}
-				<p class="text-lg">nothing :(</p>
-			{:else}
-			<!-- slowly scroll -->
-				<div class="max-h-72 overflow-y-scroll overflow-x-hidden scroll-smooth" id="playlist">
-					{#each data.playlist.songs as song}
-						<a class="flex flex-row gap-2 max-h-52" href={song.songUrl}>
-							<!-- cover art on the left with song title and description to the right -->
-							<img
-								src={song.albumImageUrl}
-								alt={song.title + ' album art.'}
-								class="rounded-lg w-12 h-12"
-							/>
+				{#if playlist.songs.length == 0}
+					<p class="text-lg">nothing :(</p>
+				{:else}
+					<!-- slowly scroll -->
+					<div class="max-h-72 overflow-y-scroll overflow-x-hidden scroll-smooth" id="playlist">
+						{#each playlist.songs as song}
+							<a class="flex flex-row gap-2 max-h-52" href={song.songUrl}>
+								<!-- cover art on the left with song title and description to the right -->
+								<img
+									src={song.albumImageUrl}
+									alt={song.title + ' album art.'}
+									class="rounded-lg w-12 h-12"
+								/>
 
-							<div class="flex flex-col my-auto w-full">
-								<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate w-5/6">
-									{song.title}
-								</p>
-								<p class="sm:text-md text-md text-ellipsis truncate w-5/6">{song.artist}</p>
-							</div>
-						</a>
-					{/each}
-				</div>
-			{/if}
+								<div class="flex flex-col my-auto w-full">
+									<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate w-5/6">
+										{song.title}
+									</p>
+									<p class="sm:text-md text-md text-ellipsis truncate w-5/6">{song.artist}</p>
+								</div>
+							</a>
+						{/each}
+					</div>
+				{/if}
+			{/await}
 		</Box>
 
 		<Box>
@@ -261,33 +294,35 @@
 				what i've played in the last 2 weeks along with total playtime.
 			</p>
 
-			{#if data.games.totalCount == 0}
-				<p class="text-lg">nothing :(</p>
-			{:else}
-				{#each data.games.games as game}
-					<a
-						class="flex flex-row gap-2 mt-2"
-						href="https://store.steampowered.com/app/{game.appid}"
-					>
-						<div class="flex flex-col my-auto">
-							<div class="flex flex-row gap-2 items-center">
-								<img
-									src="https://media.steampowered.com/steamcommunity/public/images/apps/{game.appid}/{game.img_icon_url}.jpg"
-									alt={game.name + ' game poster.'}
-									class="rounded-sm w-6 h-6"
-								/>
+			{#await data.games then games}
+				{#if games.totalCount == 0}
+					<p class="text-lg">nothing :(</p>
+				{:else}
+					{#each games.games as game}
+						<a
+							class="flex flex-row gap-2 mt-2"
+							href="https://store.steampowered.com/app/{game.appid}"
+						>
+							<div class="flex flex-col my-auto">
+								<div class="flex flex-row gap-2 items-center">
+									<img
+										src="https://media.steampowered.com/steamcommunity/public/images/apps/{game.appid}/{game.img_icon_url}.jpg"
+										alt={game.name + ' game poster.'}
+										class="rounded-sm w-6 h-6"
+									/>
 
-								<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate sm:w-48 w-36">
-									{game.name}
+									<p class="sm:text-xl text-lg font-semibold text-ellipsis truncate sm:w-48 w-36">
+										{game.name}
+									</p>
+								</div>
+								<p class="sm:text-md text-md text-ellipsis truncate sm:w-64 w-52">
+									{convertToHumanReadable(game.playtime)}
 								</p>
 							</div>
-							<p class="sm:text-md text-md text-ellipsis truncate sm:w-64 w-52">
-								{convertToHumanReadable(game.playtime)}
-							</p>
-						</div>
-					</a>
-				{/each}
-			{/if}
+						</a>
+					{/each}
+				{/if}
+			{/await}
 		</Box>
 
 		<Box
@@ -304,18 +339,33 @@
 	</div>
 
 	<!-- divider -->
-	<div class="mt-8 w-12 mx-auto">
+	<div class="mt-8 w-12 mx-auto z-20">
 		<hr />
 	</div>
 
 	<div
-		class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 w-fit mx-auto gap-4 justify-center items-center mt-2"
+		class="relative grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 w-fit mx-auto gap-4 justify-center items-center mt-2 z-20"
 		transition:fade={{ duration: 250 }}
 	>
 		<h1 class="text-4xl font-bold text-center col-span-full my-4">blog posts</h1>
 
-		{#each data.posts as post}
-			<Box hrefURL="/blog/{post.slug}" headingText={post.title} content={post.description} />
-		{/each}
+		{#await data.posts then posts}
+			{#each posts as post}
+				<Box hrefURL="/blog/{post.slug}" headingText={post.title} content={post.description} />
+			{/each}
+		{/await}
 	</div>
+
+	{#await data.song then song}
+		<!-- have the lyrics scrolling by in the background if they exist -->
+		{#if song.lyrics}
+			<div class="absolute pt-[4rem] px-6 top-0 left-0 w-full h-full z-0 pointer-events-none overflow-clip blur-[3px]">
+				<div class="relative flex flex-col justify-center items-center z-0" id="lyrics">
+					<p class="text-gray-500 text-4xl font-black uppercase opacity-[15%] leading-[5rem] z-0 text-justify">
+						{song.lyrics}
+					</p>
+				</div>
+			</div>
+		{/if}
+	{/await}
 {/if}

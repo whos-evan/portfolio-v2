@@ -21,7 +21,6 @@ export type PlaylistSong = {
 	album: string;
 	albumImageUrl: string;
 	songUrl: string;
-	previewUrl: string;
 };
 
 
@@ -33,6 +32,7 @@ export type Song = {
 	songUrl: string;
 	isPlaying: boolean;
 	previewUrl: string;
+	lyrics: string;
 };
 
 export type Game = {

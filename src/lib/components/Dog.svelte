@@ -81,7 +81,7 @@
 	});
 </script>
 
-<div class="relative">
+<div class="relative z-50">
 	<div class="absolute bottom-0 mx-auto">
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div
