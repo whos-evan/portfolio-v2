@@ -20,83 +20,163 @@
 	let isRunning = false;
 	let isOnBreak = false;
 
-	let interval;
-	function startTimer() {
-		isRunning = true;
-		interval = setInterval(() => {
-			if (seconds > 0) {
-				seconds--;
-			} else if (minutes > 0) {
-				minutes--;
-				seconds = 59;
-			} else if (hours > 0) {
-				hours--;
-				minutes = 59;
-				seconds = 59;
+	let interval: ReturnType<typeof setInterval> | undefined;
+	let startTime: number;
+	let totalDuration: number; // Total duration in seconds
+	let pausedTime = 0; // Time paused in seconds
+
+	function getTotalSeconds(h: number, m: number, s: number): number {
+		return h * 3600 + m * 60 + s;
+	}
+
+	function updateDisplay(remainingSeconds: number) {
+		hours = Math.floor(remainingSeconds / 3600);
+		minutes = Math.floor((remainingSeconds % 3600) / 60);
+		seconds = remainingSeconds % 60;
+	}
+
+	function updateBreakDisplay(remainingSeconds: number) {
+		breakHours = Math.floor(remainingSeconds / 3600);
+		breakMinutes = Math.floor((remainingSeconds % 3600) / 60);
+		breakSeconds = remainingSeconds % 60;
+	}
+
+	function tick() {
+		const elapsed = Math.floor((Date.now() - startTime) / 1000) + pausedTime;
+		const remaining = Math.max(0, totalDuration - elapsed);
+
+		if (isOnBreak) {
+			updateBreakDisplay(remaining);
+		} else {
+			updateDisplay(remaining);
+		}
+
+		if (remaining <= 0) {
+			clearInterval(interval);
+			isRunning = false;
+			
+			const timer = document.getElementById('timer') as HTMLAudioElement;
+			timer?.play();
+
+			if (isOnBreak) {
+				// Break finished, restart timer
+				isOnBreak = false;
+				restartTimer();
 			} else {
-				clearInterval(interval);
-				isRunning = false;
-				isOnBreak = true;
-				timer.play();
+				// Timer finished, start break
 				transitionToBreak();
 			}
-		}, 1000);
+		}
+	}
+
+	function startTimer() {
+		if (!isRunning) {
+			totalDuration = getTotalSeconds(setHours, setMinutes, setSeconds);
+			if (totalDuration === 0) return;
+			
+			// If resuming from pause, calculate remaining time
+			if (pausedTime > 0) {
+				const currentRemaining = getTotalSeconds(hours, minutes, seconds);
+				pausedTime = totalDuration - currentRemaining;
+			}
+			
+			startTime = Date.now();
+			isRunning = true;
+			isOnBreak = false;
+			
+			// Update display immediately
+			tick();
+			
+			interval = setInterval(tick, 100); // Check more frequently for accuracy
+		}
 	}
 
 	function stopTimer() {
-		clearInterval(interval);
+		if (interval) {
+			clearInterval(interval);
+			interval = undefined;
+		}
+		
+		if (isRunning) {
+			// Calculate how much time has passed and store it
+			const elapsed = Math.floor((Date.now() - startTime) / 1000);
+			pausedTime += elapsed;
+		}
+		
 		isRunning = false;
 	}
 
 	function restartTimer() {
-		clearInterval(interval);
+		if (interval) {
+			clearInterval(interval);
+			interval = undefined;
+		}
 		isRunning = false;
 		isOnBreak = false;
+		pausedTime = 0;
 		hours = setHours;
 		minutes = setMinutes;
 		seconds = setSeconds;
 	}
 
 	function transitionToBreak() {
-		clearInterval(interval);
+		if (interval) {
+			clearInterval(interval);
+			interval = undefined;
+		}
 		isRunning = false;
 		isOnBreak = true;
+		pausedTime = 0;
+		breakHours = setBreakHours;
+		breakMinutes = setBreakMinutes;
+		breakSeconds = setBreakSeconds;
 	}
 
 	function startBreak() {
-		clearInterval(interval);
-		isRunning = true;
-		isOnBreak = true;
-
-		interval = setInterval(() => {
-			if (breakSeconds > 0) {
-				breakSeconds--;
-			} else if (breakMinutes > 0) {
-				breakMinutes--;
-				breakSeconds = 59;
-			} else if (breakHours > 0) {
-				breakHours--;
-				breakMinutes = 59;
-				breakSeconds = 59;
-			} else {
-				clearInterval(interval);
-				isRunning = false;
-				isOnBreak = false;
-				timer.play();
-				restartTimer();
+		if (!isRunning) {
+			totalDuration = getTotalSeconds(setBreakHours, setBreakMinutes, setBreakSeconds);
+			if (totalDuration === 0) return;
+			
+			// If resuming from pause, calculate remaining time
+			if (pausedTime > 0) {
+				const currentRemaining = getTotalSeconds(breakHours, breakMinutes, breakSeconds);
+				pausedTime = totalDuration - currentRemaining;
 			}
-		}, 1000);
+			
+			startTime = Date.now();
+			isRunning = true;
+			isOnBreak = true;
+			
+			// Update display immediately
+			tick();
+			
+			interval = setInterval(tick, 100);
+		}
 	}
 
 	function stopBreak() {
-		clearInterval(interval);
+		if (interval) {
+			clearInterval(interval);
+			interval = undefined;
+		}
+		
+		if (isRunning) {
+			// Calculate how much time has passed and store it
+			const elapsed = Math.floor((Date.now() - startTime) / 1000);
+			pausedTime += elapsed;
+		}
+		
 		isRunning = false;
 	}
 
 	function restartBreak() {
-		clearInterval(interval);
+		if (interval) {
+			clearInterval(interval);
+			interval = undefined;
+		}
 		isRunning = false;
 		isOnBreak = false;
+		pausedTime = 0;
 		breakHours = setBreakHours;
 		breakMinutes = setBreakMinutes;
 		breakSeconds = setBreakSeconds;
@@ -112,16 +192,20 @@
 		hours = setHours;
 		minutes = setMinutes;
 		seconds = setSeconds;
+		pausedTime = 0;
 	}
 
 	function setBreak() {
 		breakHours = setBreakHours;
 		breakMinutes = setBreakMinutes;
 		breakSeconds = setBreakSeconds;
+		pausedTime = 0;
 	}
 
 	onDestroy(() => {
-		clearInterval(interval);
+		if (interval) {
+			clearInterval(interval);
+		}
 	});
 </script>
 
